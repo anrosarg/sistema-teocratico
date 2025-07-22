@@ -33,25 +33,33 @@ class Publisher extends Model
 
     public function privileges()
     {
-        // Solo permite la relación si el publicador es ejemplar y bautizado
-        if ($this->status !== 'bautizado' || $this->condition !== 'ejemplar') {
-            return $this->belongsToMany(Privilege::class, 'privilege_publisher')->whereRaw('1=0');
-        }
+        // Relación sin restricciones para poder ver lo que tiene asignado
         return $this->belongsToMany(Privilege::class, 'privilege_publisher');
     }
 
-   /* public function assignments()
-    {
-        // Solo permite la relación si el publicador es ejemplar y bautizado
-        if ($this->status !== 'bautizado' || $this->condition !== 'ejemplar') {
-            return $this->belongsToMany(Assignment::class, 'assignment_publisher')->whereRaw('1=0');
-        }
-        return $this->belongsToMany(Assignment::class, 'assignment_publisher');
-    }*/
     public function assignments()
     {
-        // Sin restricción
+        // Relación sin restricciones
         return $this->belongsToMany(Assignment::class, 'assignment_publisher');
     }
-    
+
+    /**
+     * Devuelve los privilegios activos (si es bautizado y ejemplar)
+     */
+    public function activePrivileges()
+    {
+        return $this->status === 'bautizado' && $this->condition === 'ejemplar'
+            ? $this->privileges
+            : collect();
+    }
+
+    /**
+     * Devuelve las asignaciones activas (si querés hacer algo similar)
+     */
+    public function activeAssignments()
+    {
+        return $this->status === 'bautizado' && $this->condition === 'ejemplar'
+            ? $this->assignments
+            : collect();
+    }
 }
