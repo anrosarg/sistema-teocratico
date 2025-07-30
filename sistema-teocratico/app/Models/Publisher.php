@@ -16,6 +16,12 @@ class Publisher extends Model
         'condition'
     ];
 
+    protected $casts = [
+        'asignaciones' => 'array',
+    ];
+
+    // RELACIONES
+
     public function circuit()
     {
         return $this->belongsTo(Circuit::class);
@@ -33,19 +39,16 @@ class Publisher extends Model
 
     public function privileges()
     {
-        // Relación sin restricciones para poder ver lo que tiene asignado
         return $this->belongsToMany(Privilege::class, 'privilege_publisher');
     }
 
     public function assignments()
     {
-        // Relación sin restricciones
         return $this->belongsToMany(Assignment::class, 'assignment_publisher');
     }
 
-    /**
-     * Devuelve los privilegios activos (si es bautizado y ejemplar)
-     */
+    // PRIVILEGIOS Y ASIGNACIONES ACTIVOS
+
     public function activePrivileges()
     {
         return $this->status === 'bautizado' && $this->condition === 'ejemplar'
@@ -53,13 +56,17 @@ class Publisher extends Model
             : collect();
     }
 
-    /**
-     * Devuelve las asignaciones activas (si querés hacer algo similar)
-     */
     public function activeAssignments()
     {
         return $this->status === 'bautizado' && $this->condition === 'ejemplar'
             ? $this->assignments
             : collect();
+    }
+
+    // ACCESSOR NOMBRE COMPLETO
+
+    public function getNombreCompletoAttribute()
+    {
+        return ucfirst(strtolower($this->first_name)) . ' ' . ucfirst(strtolower($this->last_name));
     }
 }
