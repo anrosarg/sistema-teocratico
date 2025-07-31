@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ReunionFinDeSemana;
+use App\Models\Assignment;
+use App\Models\Publisher;
 
 class ReunionFinDeSemanaController extends Controller
 {
@@ -67,9 +69,52 @@ class ReunionFinDeSemanaController extends Controller
 
     public function show(string $id) { }
 
-    public function edit(string $id) { }
+    public function edit($id)
+{
+    $reunion = ReunionFinDeSemana::findOrFail($id);
 
-    public function update(Request $request, string $id) { }
+    $idPresidente = Assignment::where('name', 'Presidente')->first()?->id;
+    $idLector = Assignment::where('name', 'Lector de La Atalaya')->first()?->id;
 
-    public function destroy(string $id) { }
+    if (!$idPresidente || !$idLector) {
+        abort(500, 'Asignaciones requeridas no encontradas.');
+    }
+
+    $presidentes = Publisher::whereHas('assignments', function ($query) use ($idPresidente) {
+        $query->where('assignment_id', $idPresidente);
+    })->orderBy('last_name')->get();
+
+    $lectores = Publisher::whereHas('assignments', function ($query) use ($idLector) {
+        $query->where('assignment_id', $idLector);
+    })->orderBy('last_name')->get();
+
+    return view('reuniones.fin_de_semana.edit', compact('reunion', 'presidentes', 'lectores'));
+}
+
+    public function update(Request $request, $id)
+{
+    $request->validate([
+        'fecha' => 'required|date',
+        'presidente_id' => 'required|exists:publishers,id',
+        'orador' => 'required|string|max:255',
+        'congregacion' => 'required|string|max:255',
+        'tema' => 'required|string|max:255',
+        'la_atalaya' => 'required|string|max:255',
+        'lector_id' => 'required|exists:publishers,id',
+    ]);
+
+    $reunion = ReunionFinDeSemana::findOrFail($id);
+
+    $reunion->update($request->all());
+
+    return redirect()->route('reunion-fin-de-semana.index')->with('success', 'Reunión actualizada correctamente.');
+}
+
+    public function destroy($id)
+{
+    $reunion = ReunionFinDeSemana::findOrFail($id);
+    $reunion->delete();
+
+    return redirect()->route('reunion-fin-de-semana.index')->with('success', 'Reunión eliminada correctamente.');
+}
 }
