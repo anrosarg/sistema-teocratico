@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PublisherController;
 use App\Http\Controllers\ReunionEntreSemanaController;
 use App\Http\Controllers\ReunionFinDeSemanaController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +17,13 @@ use App\Http\Controllers\ReunionFinDeSemanaController;
 |
 */
 
+
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('inicio');
+})->name('inicio');
+Route::get('/asignaciones', [HomeController::class, 'asignaciones'])->name('asignaciones');
+
+Route::get('/fin-de-semana', [HomeController::class, 'finDeSemana'])->name('fin-de-semana');
 
 // Agrupamos las rutas protegidas por Jetstream/Sanctum
 Route::middleware([

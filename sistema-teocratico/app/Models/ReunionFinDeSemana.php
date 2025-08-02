@@ -20,6 +20,7 @@ class ReunionFinDeSemana extends Model
     ];
 
     // Relaciones
+
     public function presidente()
     {
         return $this->belongsTo(Publisher::class, 'presidente_id');

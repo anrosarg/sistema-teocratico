@@ -17,6 +17,7 @@
                 </div>
                 {{-- Componente Livewire para búsqueda y tabla --}}
                 <livewire:publisher-search />
+                
             </div>
         </div>
     </div>
