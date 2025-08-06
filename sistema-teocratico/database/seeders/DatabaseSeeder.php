@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+        $this->call(SuperAdminSeeder::class);
         $this->call(CircuitSeeder::class);
         $this->call(CongregationSeeder::class);
         $this->call(GroupSeeder::class);

@@ -5,6 +5,8 @@ use App\Http\Controllers\PublisherController;
 use App\Http\Controllers\ReunionEntreSemanaController;
 use App\Http\Controllers\ReunionFinDeSemanaController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AssignmentController;
+use App\Http\Controllers\PrivilegeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +34,10 @@ Route::middleware([
     'verified',
 ])->group(function () {
 
+   Route::middleware(['auth', 'verified'])->group(function () {
+    Route::resource('assignments', AssignmentController::class);
+    Route::resource('privileges', PrivilegeController::class);
+});
     // Ruta principal del panel
     Route::get('/dashboard', [PublisherController::class, 'index'])->name('dashboard');
 
