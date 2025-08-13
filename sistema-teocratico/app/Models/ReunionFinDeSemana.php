@@ -30,4 +30,4 @@ class ReunionFinDeSemana extends Model
     {
         return $this->belongsTo(Publisher::class, 'lector_id');
     }
-}
+
