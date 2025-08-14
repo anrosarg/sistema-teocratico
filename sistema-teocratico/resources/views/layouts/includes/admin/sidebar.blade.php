@@ -19,14 +19,42 @@ $links = [
 
     // Menú con subitems
     [
-        'type'  => 'menu',
-        'name'  => 'Contenido',
-        'icon'  => 'fa-solid fa-layer-group',
-        'items' => [
-            [ 'name' => 'Productos',   'route' => 'admin.products.index' ],
-            [ 'name' => 'Categorías',  'route' => 'admin.categories.index' ],
-        ],
-    ],
+  'type'  => 'menu',
+  'name'  => 'Cargas',
+  'icon'  => 'fa-solid fa-gear',
+  'items' => [
+      [ 'name' => 'Circuitos',       'route' => 'admin.circuits.index' ],
+      [
+  'type'   => 'link',
+  'name'   => 'Congregaciones',
+  'icon'   => 'fa-solid fa-people-roof',
+  'route'  => 'admin.congregations.index',
+  'active' => request()->routeIs('admin.congregations.*'),
+],
+[
+  'type'   => 'link',
+  'name'   => 'Privilegios',
+  'icon'   => 'fa-solid fa-shield-halved', // o el que prefieras
+  'route'  => 'admin.privileges.index',
+  'active' => request()->routeIs('admin.privileges.*'),
+],
+[
+  'type'   => 'link',
+  'name'   => 'Asignaciones',
+  'icon'   => 'fa-solid fa-list-check',
+  'route'  => 'admin.assignments.index',
+  'active' => request()->routeIs('admin.assignments.*'),
+],
+[
+  'type'   => 'link',
+  'name'   => 'Grupos',
+  'icon'   => 'fa-solid fa-people-group',
+  'route'  => 'admin.groups.index',
+  'active' => request()->routeIs('admin.groups.*'),
+],
+      
+  ],
+],
 
     // Otro link de ejemplo
     [
