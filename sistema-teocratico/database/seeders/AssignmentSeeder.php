@@ -31,6 +31,9 @@ class AssignmentSeeder extends Seeder
             'Encargado de la caja de mantenimiento',
             'Retiro de publicaciones',
             'Arreglo de micros',
+            'Lector de la Atalaya',
+            'Lector del estudio bíblico',
+            'Presidente',
         ];
 
         foreach ($assignments as $assignment) {

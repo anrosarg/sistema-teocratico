@@ -1,4 +1,4 @@
-<x-admin-layout
+<x-admin-layout>
   title="Asignaciones"
   :breadcrumbs="[
     ['name' => 'Inicio', 'route' => 'admin.dashboard'],

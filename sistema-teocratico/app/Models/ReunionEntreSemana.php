@@ -20,6 +20,10 @@ class ReunionEntreSemana extends Model
         'plataforma_id',
     ];
 
+    protected $casts = [
+        'fecha' => 'date',
+    ];
+
     public function acomodadorPuerta()
     {
         return $this->belongsTo(Publisher::class, 'acomodador_puerta_id');

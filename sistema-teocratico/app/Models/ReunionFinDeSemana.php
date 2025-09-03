@@ -19,8 +19,6 @@ class ReunionFinDeSemana extends Model
         'lector_id',
     ];
 
-    // Relaciones
-
     public function presidente()
     {
         return $this->belongsTo(Publisher::class, 'presidente_id');
@@ -30,4 +28,4 @@ class ReunionFinDeSemana extends Model
     {
         return $this->belongsTo(Publisher::class, 'lector_id');
     }
-
+}

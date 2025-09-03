@@ -1,0 +1,1 @@
+@include('layouts.includes.front.nav', get_defined_vars())

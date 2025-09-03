@@ -23,9 +23,12 @@ class PrivilegeSeeder extends Seeder
             'Superintendente de servicio',
             'Conductor de la Atalaya',
             'Superintendente de la reunión vida y ministerio cristianos',
+            'Superintendente de grupo',
+            'Auxiliar de grupo',
             'Comité de mantenimiento',
             'Consejero auxiliar',
             'Coordinador de conferencias',
+            
         ];
 
         foreach ($privileges as $privilege) {
